@@ -3,20 +3,23 @@ package com.app.onboardingscreen
 import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 
 class MainActivity : AppCompatActivity() {
     lateinit var indicatorsContainer:LinearLayout
+    lateinit var onBoard_screen: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val onBoard_screen: ViewPager2 = findViewById(R.id.onBoard_screen)
+        // val onBoard_screen: ViewPager2 = findViewById(R.id.onBoard_screen)
+        onBoard_screen = findViewById(R.id.onBoard_screen)
         var onBoardingScreenAdapter:OnBoardingScreenAdapter = OnBoardingScreenAdapter(
             listOf(
                 OnboardingItem(simple_text="Slide 1"),
@@ -50,6 +53,17 @@ class MainActivity : AppCompatActivity() {
                 setCurrentPage(position)
             }
         })
+
+        findViewById<Button>(R.id.next).setOnClickListener{
+            // Toast.makeText(this," onBoard_screen.currentItem", Toast.LENGTH_LONG).show()
+            Log.i("data", onBoard_screen.itemDecorationCount.toString())
+            if(onBoard_screen.currentItem+1 < onBoardingScreenAdapter.itemCount){
+                onBoard_screen.currentItem+=1
+            }
+            else{
+                // Redriect activity
+            }
+        }
 
         /*val childCount = indicatorsContainer.childCount
         for(i in 0 until childCount){
